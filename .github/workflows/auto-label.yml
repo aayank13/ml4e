@@ -1,0 +1,46 @@
+name: Auto Label Issue
+
+on:
+  issues:
+    types: [opened, reopened, edited]
+
+jobs:
+  label_issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Label Issue
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            const issueBody = issue.body ? issue.body.toLowerCase() : '';
+
+            // Initialize labels array with 'good first issue'
+            const labelsToAdd = ['good first issue'];
+
+            // Check for participation roles in the issue body
+            const hasGSSOC = issueBody.includes('gssoc');
+            const hasGSOC = issueBody.includes('gsoc');
+
+            // Add labels based on participation roles
+            if (hasGSSOC) {
+              labelsToAdd.push('gssoc-ext');
+              console.log('gssoc-ext label will be added for GSSOC participant.');
+            }
+
+            if (hasGSOC) {
+              labelsToAdd.push('gsoc-ext');
+              console.log('gsoc-ext label will be added for GSOC participant.');
+            }
+
+            // Add labels to the issue
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              labels: labelsToAdd
+            });
+            console.log(`Added labels: ${labelsToAdd.join(', ')}`);
