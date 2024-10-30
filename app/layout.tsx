@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ML4E - Machine Learning for Everyone",
-  description: "Machine Learning for Everyone is a collection of resources to help you learn machine learning.",
+  description: "ML4E - Machine Learning for Everyone is a collection of resources to help you learn machine learning.",
 };
 
 export default function RootLayout({
