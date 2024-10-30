@@ -79,3 +79,87 @@
   }
 }
 
+.grid-background {
+  background-image: 
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  /* position: relative; Ensure the parent element is positioned */
+  overflow: hidden;   /* Clip any overflow to maintain the circular shape */
+}
+
+.grid-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px; /* Adjust the width for the area to blur */
+  height: 200px; /* Match the height to width for a quarter circle */
+  backdrop-filter: blur(5px); /* Add the blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  z-index: 1; /* Ensure it applies to the background only */
+  pointer-events: none; /* Prevent interaction */
+  
+  /* Create the quarter circle effect */
+  border-top-left-radius: 200px; /* Set radius to create a quarter circle */
+}
+/* .flare-effect {
+  content: '';
+  position: absolute;
+  top: 0; /* Start from the top */
+  /* left: 0; Start from the left */
+  /* width: 150%; Extend beyond the container */
+  /* height: 150%; Extend beyond the container */
+  /* background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.6), rgba(128, 0, 128, 0.4)); */
+  /* filter: blur(60px); Add blur for a softer effect */
+  /* z-index: 0; Place it behind other content */
+/* } */ 
+.flare-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px; /* Adjust width */
+  height: 1000px; /* Adjust height */
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(128, 0, 128, 0.4) 100%);
+  filter: blur(60px); /* Adjust blur radius */
+  opacity: 0.5; /* Adjust opacity */
+  pointer-events: none; /* Prevent interaction */
+  z-index: 0; /* Set behind other elements */
+  rotate:125deg;
+  margin-left: 400px;
+  margin-top: -400px;
+}
+.flare-effect-1{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px; /* Adjust width */
+  height: 800px; /* Adjust height */
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(128, 0, 128, 0.4) 100%);
+  filter: blur(60px); /* Adjust blur radius */
+  opacity: 0.5; /* Adjust opacity */
+  pointer-events: none; /* Prevent interaction */
+  z-index: 0; /* Set behind other elements */
+  rotate:125deg;
+  margin-left: 50px;
+  margin-top: -400px;
+}
+.learn-button {
+  position: relative;
+  cursor: pointer;
+}
+
+.learn-button:hover .learn-text {
+  transform: translateX(100%); /* Move text to the right */
+  opacity: 0; /* Make text invisible */
+}
+
+.learn-button:hover .learn-emoji {
+  transform: translateX(0); /* Move emoji into place */
+  opacity: 1; /* Show emoji */
+}
