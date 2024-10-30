@@ -21,7 +21,7 @@ ML4E (Machine Learning for Everyone) is an open-source platform designed to make
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/username/ML4E.git
+   git clone https://github.com/aayank13/ML4E.git
    cd ML4E
    ```
 
