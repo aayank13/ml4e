@@ -199,7 +199,7 @@ export default function AppSidebar() {
                   <DropdownMenuLabel className="text-xs text-muted-foreground">
                     Current Courses
                   </DropdownMenuLabel>
-                  {data.courses.map((course, index) => (
+                  {data.courses.map((course) => (
                     <DropdownMenuItem
                       key={course.name}
                       onClick={() => setActiveCourse(course)}
