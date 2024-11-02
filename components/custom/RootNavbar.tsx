@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import Image from "next/image";
 import { Search, Moon, Sun, MoreVertical } from "lucide-react";
 
@@ -65,26 +70,34 @@ function Navbar({ darkMode, toggleDarkMode, isOpen, setIsOpen }: NavbarProps) {
             />
             <span className="text-xl font-bold tracking-wider">ML4E</span>
           </Link>
-          <Link href="/learn" className="hidden md:block">Learn</Link>
-          <Link href="/datasets" className="hidden md:block">Datasets</Link>
-          <Link href="/community" className="hidden md:block">Community</Link>
+          <Link href="/learn" className="hidden md:block">
+            Learn
+          </Link>
+          <Link href="/datasets" className="hidden md:block">
+            Datasets
+          </Link>
+          <Link href="/community" className="hidden md:block">
+            Community
+          </Link>
         </div>
       </div>
       <div className="flex items-center justify-end space-x-4">
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger asChild>
-  <Button
-    variant="outline"
-    className={`hidden md:flex items-center w-full max-w-xs h-10 rounded-2xl ${
-      darkMode ? "bg-[#1f2937] hover:bg-[#425167]" : "bg-[#f0f0f0] hover:bg-[#e0e0e0]"
-    } border-none outline-none`}
-    onClick={() => setIsOpen(true)}
-  >
-    <Search className={darkMode ? "text-gray-400" : "text-black"} />
-    <span className="ml-2 text-[#999595]">Search</span>
-    <span className="ml-24 text-gray-400 text-sm">Command + K</span>
-  </Button>
-</DialogTrigger>
+          <DialogTrigger asChild>
+            <Button
+              variant="outline"
+              className={`hidden md:flex items-center w-full max-w-xs h-10 rounded-2xl ${
+                darkMode
+                  ? "bg-[#1f2937] hover:bg-[#425167]"
+                  : "bg-[#f0f0f0] hover:bg-[#e0e0e0]"
+              } border-none outline-none`}
+              onClick={() => setIsOpen(true)}
+            >
+              <Search className={darkMode ? "text-gray-400" : "text-black"} />
+              <span className="ml-2 text-[#999595]">Search</span>
+              <span className="ml-24 text-gray-400 text-sm">Command + K</span>
+            </Button>
+          </DialogTrigger>
 
           <DialogContent
             className={`[&>button]:hidden p-6 rounded-lg shadow-lg w-full max-w-2xl outline-none border-none mb-12 max-h-full ${
@@ -121,13 +134,47 @@ function Navbar({ darkMode, toggleDarkMode, isOpen, setIsOpen }: NavbarProps) {
             </div>
           </DialogContent>
         </Dialog>
-        <button onClick={() => setIsOpen(true)} className={`md:hidden p-2 rounded-full ${darkMode ? "text-white" : "text-black"}`}><Search /></button>
-        <button className="md:hidden focus:outline-none" onClick={toggleDropdown}><MoreVertical className={darkMode ? "text-white" : "text-black"} /></button>
+        <button
+          onClick={() => setIsOpen(true)}
+          className={`md:hidden p-2 rounded-full ${
+            darkMode ? "text-white" : "text-black"
+          }`}
+        >
+          <Search />
+        </button>
+        <button
+          className="md:hidden focus:outline-none"
+          onClick={toggleDropdown}
+        >
+          <MoreVertical className={darkMode ? "text-white" : "text-black"} />
+        </button>
         {dropdownOpen && (
-          <div className={`absolute right-1 top-12 w-48 rounded-lg shadow-lg z-20 p-2 ${darkMode ? "bg-[#1f2937] text-white" : "bg-white text-black"}`}>
-            <Link href="/" onClick={() => setDropdownOpen(false)} className="block w-full px-4 py-2 hover:bg-gray-200 rounded-lg">Home</Link>
-            <Link href="/learn" onClick={() => setDropdownOpen(false)} className="block w-full px-4 py-2 hover:bg-gray-200 rounded-lg">Learn</Link>
-            <Link href="/about" onClick={() => setDropdownOpen(false)} className="block w-full px-4 py-2 hover:bg-gray-200 rounded-lg">About</Link>
+          <div
+            className={`absolute right-1 top-12 w-48 rounded-lg shadow-lg z-20 p-2 ${
+              darkMode ? "bg-[#1f2937] text-white" : "bg-white text-black"
+            }`}
+          >
+            <Link
+              href="/"
+              onClick={() => setDropdownOpen(false)}
+              className="block w-full px-4 py-2 hover:bg-gray-200 rounded-lg"
+            >
+              Home
+            </Link>
+            <Link
+              href="/learn"
+              onClick={() => setDropdownOpen(true)}
+              className="block w-full px-4 py-2 hover:bg-gray-200 rounded-lg"
+            >
+              Learn
+            </Link>
+            <Link
+              href="/about"
+              onClick={() => setDropdownOpen(false)}
+              className="block w-full px-4 py-2 hover:bg-gray-200 rounded-lg"
+            >
+              About
+            </Link>
           </div>
         )}
         <div className="flex items-center">
@@ -163,6 +210,7 @@ export default function RootNavbar() {
       localStorage.setItem("darkMode", JSON.stringify(newMode));
       return newMode;
     });
+    window.dispatchEvent(new Event("darkModeChanged"));
   };
 
   return (
