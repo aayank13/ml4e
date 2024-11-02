@@ -1,36 +1,8 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
+import ThemeToggleButton from "@/components/custom/ThemeToggleButton";
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
-  const loadDarkMode = () => {
-    setDarkMode((prevMode) => {
-      const newMode = !prevMode;
-      localStorage.getItem("darkMode");
-      return newMode;
-    });
-  };
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("darkMode");
-    if (savedTheme !== null) {
-      setDarkMode(JSON.parse(savedTheme));
-    }
-    window.addEventListener("darkModeChanged", loadDarkMode);
-    return () => {
-      window.removeEventListener("darkModeChanged", loadDarkMode);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
-  }, [darkMode]);
-
   return (
     <main>
       <section className="flex flex-col justify-center items-center min-h-screen text-center">
@@ -46,6 +18,9 @@ export default function Home() {
         >
           Get Started
         </Link>
+        <div className="p-5">
+          <ThemeToggleButton />
+        </div>
       </section>
     </main>
   );
