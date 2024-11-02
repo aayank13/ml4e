@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/sheet"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
-import { Search, ChevronDown, EllipsisVertical } from "lucide-react"
+import { Search, EllipsisVertical } from "lucide-react"
 import ThemeToggleButton from "./ThemeToggleButton"
 
 interface NavbarProps {
