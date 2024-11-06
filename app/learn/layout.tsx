@@ -1,21 +1,25 @@
-import React from 'react';
-import { Metadata } from 'next';
-import { SidebarProvider } from "@/components/ui/sidebar"
+import React from "react";
+import { Metadata } from "next";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/custom/AppSidebar";
+// import LearnNavbar from "@/components/custom/LearnNavbar";
 
 export const metadata: Metadata = {
-    title: "Learn - ML4E",
-    description: "ML4E - Machine Learning for Everyone is a collection of resources to help you learn machine learning.",
+  title: "Learn - ML4E",
+  description: "ML4E - Machine Learning for Everyone is a collection of resources to help you learn machine learning.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-    return (
-      <SidebarProvider>
+  return (
+    <SidebarProvider>
+      <div className="flex h-screen overflow-hidden">
         <AppSidebar />
-        <main>
+        <div className="flex-1 overflow-auto p-4">
+          <SidebarTrigger />
+          {/* <LearnNavbar /> */}
           {children}
-        </main>
-      </SidebarProvider>
-    )
+        </div>
+      </div>
+    </SidebarProvider>
+  );
 }
-  

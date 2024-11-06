@@ -4,7 +4,8 @@ import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "ML4E - Machine Learning for Everyone",
-  description: "ML4E - Machine Learning for Everyone is a collection of resources to help you learn machine learning.",
+  description:
+    "ML4E - Machine Learning for Everyone is a collection of resources to help you learn machine learning.",
 };
 
 export default function RootLayout({
@@ -14,11 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <body>
-            <ThemeProvider>
-                {children}
-            </ThemeProvider>
-        </body>
+      <body>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
-);
+  );
 }
