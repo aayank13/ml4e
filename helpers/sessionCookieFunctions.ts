@@ -1,6 +1,6 @@
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
-import { AppwriteException } from "node-appwrite";
+import { AppwriteException, Models } from "node-appwrite";
 
 import { env } from "@/env";
 
@@ -21,13 +21,13 @@ export const RetrieveAuthCookie = async ():Promise<string> => {
 };
 
 
-export const SetAuthCookie = async (cookieValue: string) => {
+export const SetAuthCookie = async (cookieData:Models.Session) => {
     const cookieStore = await cookies();
-    cookieStore.set(env.auth.cookieName, cookieValue, {
+    cookieStore.set(env.auth.cookieName, cookieData.secret, {
         httpOnly:env.auth.cookieHttpOnly,
         secure:env.auth.cookieSecure,
         sameSite:env.auth.cookieSameSite  ,
         path:env.auth.cookiePath,
-        maxAge:env.auth.cookieMaxAge
+        expires:new Date(cookieData.expire)
     })
 }

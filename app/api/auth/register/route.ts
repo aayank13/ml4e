@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import { AppwriteException, ID } from "node-appwrite";
 
 import { ClientAW, RootAW } from "@/appwrite_configs/config";
+import { env } from "@/env";
 import { SetAuthCookie } from "@/helpers/sessionCookieFunctions";
 import { registerSchema } from "@/validations/auth/registerSchema";
 
@@ -10,12 +11,12 @@ import { errorHandler, successHandler } from "../../handler";
 export async function POST(req: NextRequest) {
   try {
     let body = {};
-    try{
-         body = await req.json() || {};
-    }catch{
+    try {
+      body = (await req.json()) || {};
+    } catch {
       throw new AppwriteException("No body passed", 400);
     }
-    
+
     const validation = await registerSchema.safeParse(body);
     if (!validation.success) {
       throw new AppwriteException(validation.error.errors[0].message, 400);
@@ -39,14 +40,16 @@ export async function POST(req: NextRequest) {
       validatedData.email,
       validatedData.password
     );
-    const sessionKey = session.secret;
+ 
 
     // setting the cookie
-    await SetAuthCookie(sessionKey);
+    await SetAuthCookie(session);
 
     const { account: SavedUserAccount } = await ClientAW();
     // sending email
-    await SavedUserAccount.createVerification("http://localhost:3000/api/user/email/verify");
+    await SavedUserAccount.createVerification(
+      `${env.vercel.url}/user/email/verify`
+    );
 
     // return the user
     return successHandler({
@@ -56,10 +59,9 @@ export async function POST(req: NextRequest) {
         name: user.name,
         verified: user.emailVerification,
         registrationDate: user.registration,
-      }
+      },
     });
   } catch (e) {
     return errorHandler(e);
   }
 }
-

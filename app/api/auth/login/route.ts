@@ -33,11 +33,9 @@ export async function POST(req: NextRequest) {
     );
 
 
-
-    const sessionKey = session.secret;
     
     // setting the cookie
-    await SetAuthCookie(sessionKey);
+    await SetAuthCookie(session);
 
 
     const {account:SavedUserAccount} = await ClientAW();

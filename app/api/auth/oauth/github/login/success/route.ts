@@ -23,10 +23,9 @@ export async function GET(req: NextRequest) {
     const { account: accountRoot } = await RootAW();
     const session = await accountRoot.createSession(userId, secret);
 
-    const sessionKey = session.secret;
 
     //   setting the cookie
-    await SetAuthCookie(sessionKey);
+    await SetAuthCookie(session);
 
     const { account: SavedUserAccount } = await ClientAW();
 
