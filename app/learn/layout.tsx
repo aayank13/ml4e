@@ -2,7 +2,6 @@ import React from "react";
 import { Metadata } from "next";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/custom/AppSidebar";
-// import LearnNavbar from "@/components/custom/LearnNavbar";
 
 export const metadata: Metadata = {
   title: "Learn - ML4E",
@@ -16,7 +15,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <AppSidebar />
         <div className="flex-1 overflow-auto p-4">
           <SidebarTrigger />
-          {/* <LearnNavbar /> */}
           {children}
         </div>
       </div>

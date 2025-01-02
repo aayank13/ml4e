@@ -2,7 +2,6 @@ import type { NextRequest } from "next/server";
 import { AppwriteException, ID } from "node-appwrite";
 
 import { ClientAW, RootAW } from "@/appwrite_configs/config";
-import { env } from "@/env";
 import { SetAuthCookie } from "@/helpers/sessionCookieFunctions";
 import { registerSchema } from "@/validations/auth/registerSchema";
 
@@ -48,7 +47,7 @@ export async function POST(req: NextRequest) {
     const { account: SavedUserAccount } = await ClientAW();
     // sending email
     await SavedUserAccount.createVerification(
-      `${env.vercel.url}/user/email/verify`
+      `${process.env.VERCEL_URL}/user/email/verify`
     );
 
     // return the user

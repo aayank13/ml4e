@@ -2,7 +2,7 @@ import React from 'react'
 
 const Learn = () => {
   return (
-    <div>hello</div>
+    <div></div>
   )
 }
 

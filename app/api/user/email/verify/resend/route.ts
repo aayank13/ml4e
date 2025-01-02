@@ -3,7 +3,6 @@ import { AppwriteException } from "node-appwrite";
 
 import { errorHandler, successHandler } from "@/app/api/handler";
 import { ClientAW } from "@/appwrite_configs/config";
-import { env } from "@/env";
 
 export async function POST(req: NextRequest) {
   try {
@@ -33,7 +32,7 @@ export async function POST(req: NextRequest) {
       throw new AppwriteException("User Id does not match", 400);
     }
 
-    await account.createVerification(`${env.vercel.url}/user/email/verify`);
+    await account.createVerification(`${process.env.VERCEL_URL}/user/email/verify`);
 
     return successHandler(
       {},
