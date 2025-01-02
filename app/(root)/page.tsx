@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import ThemeToggleButton from "@/components/custom/ThemeToggleButton";
 
 export default function Home() {
   return (
@@ -18,9 +17,6 @@ export default function Home() {
         >
           Get Started
         </Link>
-        <div className="p-5">
-          <ThemeToggleButton />
-        </div>
       </section>
     </main>
   );
