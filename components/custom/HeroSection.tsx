@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 
 export default function HeroSection() {
   return (
-    <div className="relative max-w-7xl bg-gray-100 mx-3 md:mx-5 lg:mx-auto mt-20 rounded-t-xl">
+    <div className="relative max-w-7xl bg-gray-100 mx-3 md:mx-5 lg:mx-auto mt-20 rounded-xl">
       <div className="px-4 sm:px-6 lg:px-8 pt-28 pb-16 text-center">
         <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight sm:text-7xl">
           <span className="block">
@@ -64,12 +64,6 @@ export default function HeroSection() {
             />
           </div>
         </div>
-
-         {/* Blur Effect */}
-         <div
-            className="absolute inset-x-0 -top-16 h-32 w-full bg-gradient-to-t from-gray-100 via-gray-100/80 to-transparent blur-3xl"
-            aria-hidden="true"
-          ></div>
       </div>
 
       

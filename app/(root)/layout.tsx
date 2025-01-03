@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Navbar from '@/components/custom/Navbar';
+import Footer from '@/components/custom/Footer';
 
 export const metadata: Metadata = {
     title: "ML4E - Machine Learning for Everyone",
@@ -12,6 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <main>
             <Navbar />
             {children}
+            <Footer />
         </main>
     )
 }
