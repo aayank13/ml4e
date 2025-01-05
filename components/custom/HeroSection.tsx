@@ -18,7 +18,7 @@ export default function HeroSection() {
         <div className="mt-10 flex justify-center gap-x-4">
           <Button
             size="lg"
-            className="bg-indigo-500 hover:bg-indigo-700 text-white rounded-full px-8 h-12 shadow-sm shadow-[#6C5CE7]/25"
+            className="bg-indigo-600 hover:bg-indigo-900 text-white rounded-full px-8 h-12 shadow-sm shadow-[#6C5CE7]/25"
           >
             Get Started
           </Button>
