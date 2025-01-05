@@ -15,8 +15,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { supabase } from '@/lib/supabase';
-import { toast } from 'sonner';
+import { createClient } from '@/lib/supabase/client';
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 import { OAuthButtons } from './oAuthButton';
 
 const formSchema = z.object({
@@ -37,6 +38,8 @@ const formSchema = z.object({
 
 export function SignupForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const supabase = createClient();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,33 +59,23 @@ export function SignupForm() {
         },
       });
       if (error) throw error;
-      toast.success('Check your email to confirm your account');
+      toast({
+        description: "Check your email to confirm your account",
+      })
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: `${(error as Error).message}`,
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <div className="w-full max-w-md space-y-6">
-      <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Create an Account</h1>
-        <p className="text-muted-foreground">Sign up to get started</p>
-      </div>
-
-      <OAuthButtons />
-
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
+    <div className="w-full space-y-6">
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -93,7 +86,7 @@ export function SignupForm() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input placeholder="Aayan" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -138,12 +131,26 @@ export function SignupForm() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-900" disabled={isLoading}>
+          <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-800" disabled={isLoading}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Create Account
           </Button>
         </form>
       </Form>
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
+        </div>
+      </div>
+
+      <OAuthButtons />
+
     </div>
   );
 }

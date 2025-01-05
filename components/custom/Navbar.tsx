@@ -66,11 +66,11 @@ const Navbar = () => {
 
         {/* Right side items */}
         <div className="flex items-center space-x-4">
-          <Link href="/auth">
+          {/* <Link href="/auth">
             <Button variant="ghost" size="sm" className="hidden md:flex">
               Login
             </Button>
-          </Link>
+          </Link> */}
           <Link href="/dashboard">
             <Button
               size="sm"
@@ -102,18 +102,18 @@ const Navbar = () => {
                     {item.label}
                   </Link>
                 ))}
-                <Link href="/auth">
+                {/* <Link href="/auth">
                   <Button
                     size="sm"
                     className="bg-gray-100 hover:bg-gray-200 text-black"
                   >
                     Login
                   </Button>
-                </Link>
+                </Link> */}
                 <Link href="/dashboard">
                   <Button
                     size="sm"
-                    className="bg-indigo-600 hover:bg-indigo-900"
+                    className="w-full bg-indigo-600 hover:bg-indigo-900"
                   >
                     Get Started
                   </Button>

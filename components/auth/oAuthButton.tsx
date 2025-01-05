@@ -2,10 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
-import { supabase } from "@/lib/supabase";
-import { toast } from "sonner";
+import { createClient } from "@/lib/supabase/client";
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 export function OAuthButtons() {
+  const supabase = createClient();
+  const { toast } = useToast();
+
   const handleOAuthSignIn = async (provider: 'github' | 'google') => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -16,7 +20,12 @@ export function OAuthButtons() {
       });
       if (error) throw error;
     } catch (error) {
-      toast.error('Error signing in with OAuth');
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "Error signing in with OAuth",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
     }
   };
 

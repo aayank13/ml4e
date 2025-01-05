@@ -3,28 +3,43 @@
 import { useState } from 'react';
 import { LoginForm } from '@/components/auth/loginForm';
 import { SignupForm } from '@/components/auth/signupForm';
-import { Button } from '@/components/ui/button';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <div className="bg-card p-8 rounded-lg shadow-lg w-full max-w-md">
-        {isLogin ? <LoginForm /> : <SignupForm />}
-        
-        <div className="mt-6 text-center">
-          <Button
-            variant="link"
-            onClick={() => setIsLogin(!isLogin)}
-            className="text-sm"
-          >
-            {isLogin 
-              ? "Don't have an account? Sign up" 
-              : "Already have an account? Sign in"}
-          </Button>
+      <div className="min-h-screen w-full flex items-center justify-center p-8">
+        <div className="w-full max-w-md space-y-6">
+          <div className="space-y-2">
+            <h1 className="text-5xl font-bold tracking-tight">
+              Get started
+            </h1>
+            {!isLogin && (
+              <p className="text-muted-foreground">
+                Already have an account?{' '}
+                <button 
+                  onClick={() => setIsLogin(true)}
+                  className="text-primary hover:underline font-medium"
+                >
+                  Sign in
+                </button>
+              </p>
+            )}
+            {isLogin && (
+              <p className="text-muted-foreground">
+                Don&apos;t have an account?{' '}
+                <button 
+                  onClick={() => setIsLogin(false)}
+                  className="text-primary hover:underline font-medium"
+                >
+                  Sign up
+                </button>
+              </p>
+            )}
+          </div>
+
+          {isLogin ? <LoginForm /> : <SignupForm />}
         </div>
       </div>
-    </div>
   );
 }

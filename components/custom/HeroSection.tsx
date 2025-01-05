@@ -1,5 +1,6 @@
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -7,30 +8,35 @@ export default function HeroSection() {
       <div className="px-4 sm:px-6 lg:px-8 pt-28 pb-16 text-center">
         <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight sm:text-7xl">
           <span className="block">
-            Machine learning{' '}
+            Machine learning{" "}
             <span className="relative whitespace-nowrap">with,</span>
-          </span>{' '}
+          </span>{" "}
           <span className="text-[#FF9F43] mt-2 block">ML4E</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-7 text-gray-600">
-        Learn and master machine learning effortlessly with a comprehensive platform designed for collaboration and growth
+          Learn and master machine learning effortlessly with a comprehensive
+          platform designed for collaboration and growth
         </p>
         <div className="mt-10 flex justify-center gap-x-4">
-          <Button
-            size="lg"
-            className="bg-indigo-600 hover:bg-indigo-900 text-white rounded-full px-8 h-12 shadow-sm shadow-[#6C5CE7]/25"
-          >
-            Get Started
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="rounded-full px-8 h-12 border-gray-300 text-gray-700 hover:bg-gray-50"
-          >
-            About Us
-          </Button>
+          <Link href="/dashboard">
+            <Button
+              size="lg"
+              className="bg-indigo-600 hover:bg-indigo-900 text-white rounded-full px-8 h-12 shadow-sm shadow-[#6C5CE7]/25"
+            >
+              Get Started
+            </Button>
+          </Link>
+          <Link href="/about">
+            <Button
+              variant="outline"
+              size="lg"
+              className="rounded-full px-8 h-12 border-gray-300 text-gray-700 hover:bg-gray-50"
+            >
+              About Us
+            </Button>
+          </Link>
         </div>
-        
+
         {/* Browser-like Dashboard Preview */}
         <div className="mt-16 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-gray-900/10">
           {/* Browser Controls */}
@@ -43,15 +49,27 @@ export default function HeroSection() {
             <div className="flex-1">
               <div className="mx-auto max-w-md">
                 <div className="flex h-8 items-center rounded-md bg-white px-3 shadow-sm ring-1 ring-gray-900/10">
-                  <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" />
+                  <svg
+                    className="h-4 w-4 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"
+                    />
                   </svg>
-                  <span className="ml-2 text-sm text-gray-500">www.ml4e.com</span>
+                  <span className="ml-2 text-sm text-gray-500">
+                    www.ml4e.com
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-          
+
           {/* Dashboard Content */}
           <div className="p-2">
             <Image
@@ -65,8 +83,6 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-
-      
     </div>
-  )
+  );
 }
