@@ -1,16 +1,31 @@
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get('code');
+  try {
+    const requestUrl = new URL(request.url);
+    const code = requestUrl.searchParams.get('code');
 
-  if (code) {
-    const cookieStore = cookies();
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-    await supabase.auth.exchangeCodeForSession(code);
+    if (code) {
+      const cookieStore = cookies();
+      const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+      await supabase.auth.exchangeCodeForSession(code);
+    }
+
+    // Force a hard redirect to ensure session is updated
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: '/dashboard',
+      },
+    });
+  } catch (error) {
+    console.error('Auth callback error:', error);
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: '/auth?error=Unable to authenticate',
+      },
+    });
   }
-
-  return NextResponse.redirect(`${requestUrl.origin}/dashboard`);
 }

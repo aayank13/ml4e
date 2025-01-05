@@ -13,6 +13,10 @@
 # testing
 /coverage
 
+# Drizzle
+.drizzle/
+drizzle.config.js.timestamp-*
+
 # next.js
 /.next/
 /out/

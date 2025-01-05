@@ -37,12 +37,38 @@ export function LoginForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword(values);
-      if (error) throw error;
-      router.push('/dashboard');
-      toast.success('Successfully signed in');
+      const { data, error } = await supabase.auth.signInWithPassword(values);
+      
+      if (error) {
+        switch (error.message) {
+          case 'Invalid login credentials':
+            toast.error('Invalid email or password');
+            break;
+          case 'Email not confirmed':
+            toast.error('Please verify your email address');
+            break;
+          default:
+            toast.error(error.message);
+        }
+        return;
+      }
+  
+      if (data?.user) {
+        toast.success('Successfully signed in');
+        // Wait for session to be set
+        await supabase.auth.getSession();
+        // Force a router refresh to update the server-side session
+        router.refresh();
+        // Then redirect
+        router.push('/dashboard');
+      }
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An error occurred');
+      console.error('Login error:', error);
+      toast.error(
+        error instanceof Error 
+          ? error.message 
+          : 'An unexpected error occurred. Please try again'
+      );
     } finally {
       setIsLoading(false);
     }
