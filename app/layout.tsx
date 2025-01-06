@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/ui/toaster";
+import SupabaseProvider from "@/components/providers/SupabaseProvider";
 
 export const metadata: Metadata = {
   title: "ML4E - Machine Learning for Everyone",
@@ -18,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
-        <Toaster />
+        <SupabaseProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+          <Toaster />
+        </SupabaseProvider>
         <Analytics />
       </body>
     </html>

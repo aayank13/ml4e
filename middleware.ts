@@ -63,6 +63,13 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Redirect to dashboard if user is authenticated
+  // if (request.nextUrl.pathname === '/') {
+  //   if (session) {
+  //     return NextResponse.redirect(new URL('/dashboard', request.url));
+  //   }
+  // }  
+
   // Prevent authenticated users from accessing auth pages
   if (session && request.nextUrl.pathname.startsWith('/auth')) {
     return NextResponse.redirect(new URL('/dashboard', request.url));

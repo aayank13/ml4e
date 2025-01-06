@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -28,7 +27,6 @@ const formSchema = z.object({
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
   const supabase = createClient();
   const { toast } = useToast();
 
@@ -73,10 +71,12 @@ export function LoginForm() {
 
       if (data?.user) {
         toast({
-          description: "Successfully signed in",
+          description: "Successfully signed in! Redirecting...",
         })
-        router.refresh();
-        router.push("/dashboard");
+        window.location.href = "/dashboard";
+        // setTimeout(() => {
+        //   window.location.reload()
+        // }, 1000);
       }
     } catch (error) {
       console.error("Login error:", error);
