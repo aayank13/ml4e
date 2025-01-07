@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,9 +14,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
-import { useToast } from "@/hooks/use-toast"
-import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 import { OAuthButtons } from "./oAuthButton";
+import { ForgotPasswordForm } from "./ForgotPasswordForm";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -27,6 +26,7 @@ const formSchema = z.object({
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const supabase = createClient();
   const { toast } = useToast();
 
@@ -72,11 +72,8 @@ export function LoginForm() {
       if (data?.user) {
         toast({
           description: "Successfully signed in! Redirecting...",
-        })
+        });
         window.location.href = "/dashboard";
-        // setTimeout(() => {
-        //   window.location.reload()
-        // }, 1000);
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -91,9 +88,12 @@ export function LoginForm() {
     }
   }
 
+  if (showForgotPassword) {
+    return <ForgotPasswordForm onBack={() => setShowForgotPassword(false)} />;
+  }
+
   return (
     <div className="w-full space-y-6">
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -114,7 +114,17 @@ export function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <div className="flex items-center justify-between">
+                  <FormLabel>Password</FormLabel>
+                  <Button
+                    variant="link"
+                    className="px-0 font-normal text-indigo-600 hover:text-indigo-800"
+                    type="button"
+                    onClick={() => setShowForgotPassword(true)}
+                  >
+                    Forgot password?
+                  </Button>
+                </div>
                 <FormControl>
                   <Input type="password" placeholder="••••••••" {...field} />
                 </FormControl>
@@ -122,7 +132,11 @@ export function LoginForm() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-800" disabled={isLoading}>
+          <Button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-800"
+            disabled={isLoading}
+          >
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Sign In
           </Button>
