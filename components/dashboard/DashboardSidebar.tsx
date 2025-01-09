@@ -1,31 +1,5 @@
-// import {
-//   Sidebar,
-//   SidebarContent,
-//   SidebarFooter,
-//   SidebarHeader,
-//   SidebarProvider,
-//   SidebarRail,
-// } from '@/components/ui/sidebar'
-// import { UserNav } from './UserNav'
-
-// export function DashboardSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-//   return (
-//     <SidebarProvider>
-//     <Sidebar collapsible='icon' variant='floating' {...props}>
-
-//       <SidebarContent>
-
-//       </SidebarContent>
-//       <SidebarFooter>
-//         <UserNav />
-//       </SidebarFooter>
-//       <SidebarRail />
-//     </Sidebar>
-//     </SidebarProvider>
-//   )
-// }
-
 "use client";
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -44,17 +18,16 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  SidebarProvider,
   SidebarRail,
-  useSidebar,
 } from "@/components/ui/sidebar";
 import { navItems } from "@/constants/sidebarData";
-import { ChevronRight, GalleryVerticalEnd } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import { Icons } from "../icons";
 import { UserNav } from "./UserNav";
+import Image from "next/image";
 
 export const company = {
   name: "ML4E",
@@ -70,7 +43,7 @@ export function DashboardSidebar() {
         <SidebarHeader>
           <div className="flex gap-2 py-2 text-sidebar-accent-foreground ">
             <div className="flex size-8 items-center justify-center">
-                <img src={company.logo} alt="Company Logo" className="w-full" />
+                <Image src={company.logo} alt="Company Logo" height={32} width={32} className="w-full h-auto" />
             </div>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-semibold">{company.name}</span>
