@@ -1,7 +1,8 @@
 import React from "react";
 import { Metadata } from "next";
-import { Sidebar } from "@/components/dashboard/Sidebar";
-import { Topbar } from "@/components/dashboard/Topbar";
+import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import Header from "@/components/dashboard/Header";
 
 export const metadata: Metadata = {
   title: "Dashboard - ML4E",
@@ -15,12 +16,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Topbar />
-        <main className="flex-1 overflow-y-auto p-6">{children}</main>
-      </div>
-    </div>
+      <SidebarProvider>
+        <DashboardSidebar />
+        <SidebarInset>
+          <Header />
+          {/* page main content */}
+          {children}
+          {/* page main content ends */}
+        </SidebarInset>
+      </SidebarProvider>
   );
 }
