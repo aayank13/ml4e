@@ -39,7 +39,7 @@ export function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-      <Sidebar collapsible="icon" variant="floating">
+      <Sidebar collapsible="icon" variant="inset">
         <SidebarHeader>
           <div className="flex gap-2 py-2 text-sidebar-accent-foreground ">
             <div className="flex size-8 items-center justify-center">

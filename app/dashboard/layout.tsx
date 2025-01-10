@@ -21,7 +21,9 @@ export default function DashboardLayout({
         <SidebarInset>
           <Header />
           {/* page main content */}
+          <div className="container mx-auto p-4">
           {children}
+          </div>
           {/* page main content ends */}
         </SidebarInset>
       </SidebarProvider>
